@@ -1,38 +1,73 @@
 .App {
   text-align: center;
+  
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.mainHome {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(38, 38, 38);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.title {
+  font-size: 30px;
+  margin-bottom: 40px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.main-square {
+  display:grid;
+  flex-grow: 1;
+  grid-template-columns: repeat(5, 4em);
+  grid-template-rows: repeat(6, 4em);
+  gap: .25em;
+}
+
+.squares {
+  background-color: grey;
+  border-radius: 12.5%;
+}
+
+.keyboardLetters,
+.largeKeyboardLetters {
+
+    height: 50px;
+    width: 50px;
+    background-color: grey;
+    margin: 2px;
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    align-items: center;
+    border-radius: 12.5%;
+    
+}
+
+.keyboardLetters:hover,
+.largeKeyboardLetters:hover {
+
+  background-color: rgb(167, 165, 165);
+
+
+}
+
+
+
+.largeKeyboardLetters {
+  width: 80px;
+}
+
+.keyboardMain {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin-top: 50px;
 }
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.secondaryKeyboard {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
