@@ -1,40 +1,44 @@
 import squaresData from '../utils/squaresData.json'
-import React from 'react'
+import React, {useState} from 'react'
 
 
-export default function Squares() {
+
+export default function Squares({gridLetters}) {
+  
+    
+
   return (
       <div className='main-square'>
-      {squaresData[0].map((data)=>{
+      {gridLetters[0].map((data)=>{
+        return (
+            <div className ='squares'>{data}</div>
+        )
+      })}
+
+      {gridLetters[1].map((data)=>{
         return (
             <div className ='squares'>{data[0]}</div>
         )
       })}
 
-      {squaresData[1].map((data)=>{
+      {gridLetters[2].map((data)=>{
         return (
             <div className ='squares'>{data[0]}</div>
         )
       })}
 
-      {squaresData[2].map((data)=>{
+      {gridLetters[3].map((data)=>{
         return (
             <div className ='squares'>{data[0]}</div>
         )
       })}
 
-      {squaresData[3].map((data)=>{
+      {gridLetters[4].map((data)=>{
         return (
             <div className ='squares'>{data[0]}</div>
         )
       })}
-
-      {squaresData[4].map((data)=>{
-        return (
-            <div className ='squares'>{data[0]}</div>
-        )
-      })}
-      {squaresData[5].map((data)=>{
+      {gridLetters[5].map((data)=>{
         return (
             <div className ='squares'>{data[0]}</div>
         )
