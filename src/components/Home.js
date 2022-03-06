@@ -19,14 +19,13 @@ export default function Home() {
     if(wordToGuess == 'word'){
       randomWordSelector()
     }
-  }, [setClassNames])
+  }, [setClassNames, setHaveWon])
+
 
   
   function randomWordSelector() {
     let numberOfWords = dictionary.length
     let randomValue = (Math.random() * numberOfWords)
-    console.log(numberOfWords)
-    console.log("In here again")
     dictionary.map((word, i)=>{
       if(i == Math.round(randomValue))
       {
@@ -38,7 +37,7 @@ export default function Home() {
 
   return (
     <div className='mainHome'>
-    <div className='title'>BAD WORDS ONLY WORDLE</div>
+    <div className='title'>Animals Wordle</div>
     {haveWon ? <div>YOU WIN BITCH!</div> : <div></div> }
     <Squares gridLetters={gridLetters} classNames={classNames} setClassNames={setClassNames} />
 

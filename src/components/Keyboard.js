@@ -50,12 +50,17 @@ export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHave
     }
 
     if (letter === "enter") {
-      enterButton(gridPossition);
+      if(gridLetters[gridTurnCount][gridPossition] != ""){
+        enterButton();
+      }
+
+      
     }
   }
 
-  function enterButton(gridPosValue) {
-    if (gridTurnCount === 5 || gridPossition === 0) {
+  function enterButton() {
+    if (gridTurnCount === 5 && gridPossition === 6) {
+      console.log('catch')
       return 0;
     } // checks to see if player is at the end of the grids. Stops users overfilling.
 
@@ -79,45 +84,44 @@ export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHave
           userWord.forEach((character, index1)=> {
           let wordArr = wordToGuess.split('')
           wordArr.forEach((strCharacter, index2)=>{
-            console.log(character, index1, "-_-_-_-", strCharacter, index2)
             if(strCharacter == character && index1 == index2 ){
               setClassNames((prev)=>{
-                if(prev[strCharacter]['changed'] == false){
                   prev[`${strCharacter}`]["class"] = "keyboardLetters correct"
                   prev[`${strCharacter}`]['changed'] = true; 
-                  prev[`${gridTurnCount}${gridPosValue-1}`]['class'] = 'squares correct'
-                  console.log(prev)
+                  prev[`${gridTurnCount}${index1}`]['class'] = 'squares correct'
+                  
                   
                   return prev
-                }
-                
-                return prev
-                
-                
               })
-              console.log(classNames, "LINE 98")
+              
+            
             }
 
             if(strCharacter == character && index1 != index2 ){
               setClassNames((prev)=>{
-                if(prev[strCharacter]['changed'] == false){
+                prev[`${gridTurnCount}${index1}`]['class'] = 'squares wrong-location'
+                if(prev[character]['changed'] == false){
                   prev[`${strCharacter}`]["class"] = "keyboardLetters wrong-location"
                   prev[`${strCharacter}`]['changed'] = true; 
-                  prev[`${gridTurnCount}${gridPosValue-1}`]['class'] = 'squares wrong-location'
                   return prev
                 }
                 return prev
               })
             }
-          })
-              setClassNames((prev)=>{
-                if(prev[character]['changed'] == false){
+
+
+            setClassNames((prev)=>{
+              if(strCharacter != character)
+              if(prev[character]['changed'] == false){
                 prev[`${character}`]["class"] = "keyboardLetters wrong";
                 prev[`${character}`]['changed'] = true; 
-                return prev
-                }
-                return prev
-              })
+                prev[`${gridTurnCount}${index1}`]['class'] = 'squares wrong'
+              return prev
+              }
+              return prev
+            })
+          })
+              
             })
             return 'done'
       }
@@ -133,7 +137,7 @@ export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHave
     
 
     }
-
+    return 0
   }
 
   return (
