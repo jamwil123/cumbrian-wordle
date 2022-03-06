@@ -3,6 +3,7 @@ import Squares from './Squares.js'
 import Keyboard from './Keyboard.js'
 import squaresData from '../utils/squaresData.json'
 import dictionary from "../utils/dictionary.json"
+import classNamesObj from "../utils/classNames.json"
 
 export default function Home() {
   // State that changes the grids values 
@@ -11,10 +12,15 @@ export default function Home() {
   const [haveWon, setHaveWon] = useState(false);
   // State that holds the word of the day 
   const [wordToGuess, setWordToGuess] = useState('word');
+  // classname state
+  const [classNames, setClassNames] = useState(classNamesObj);
 
   useEffect(() => {
-    randomWordSelector()
-  }, [])
+    if(wordToGuess == 'word'){
+      randomWordSelector()
+    }
+  }, [setClassNames])
+
   
   function randomWordSelector() {
     let numberOfWords = dictionary.length
@@ -34,9 +40,9 @@ export default function Home() {
     <div className='mainHome'>
     <div className='title'>BAD WORDS ONLY WORDLE</div>
     {haveWon ? <div>YOU WIN BITCH!</div> : <div></div> }
-    <Squares gridLetters={gridLetters} />
+    <Squares gridLetters={gridLetters} classNames={classNames} setClassNames={setClassNames} />
 
-    <Keyboard gridLetters={gridLetters} setGridLetters={setGridLetters} haveWon={haveWon} setHaveWon={setHaveWon} wordToGuess={wordToGuess} setWordToGuess={setWordToGuess}/>
+    <Keyboard classNames={classNames} setClassNames={setClassNames} gridLetters={gridLetters} setGridLetters={setGridLetters} haveWon={haveWon} setHaveWon={setHaveWon} wordToGuess={wordToGuess} setWordToGuess={setWordToGuess}/>
 
     </div>
   )
