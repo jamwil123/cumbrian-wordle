@@ -24,7 +24,6 @@ export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHave
     setGridLetters((prev) => {
       let arr = [...prev];
       arr[gridTurnCount][gridPossition] = `${letter}`;
-      console.log(gridPossition, gridTurnCount);
       return arr; // return modified array with new letter in it
     });
 
@@ -46,7 +45,7 @@ export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHave
       setGridPossition((prev) => {
         return prev - 1;
       });
-      console.log(gridPossition, gridTurnCount);
+      
     }
 
     if (letter === "enter") {
@@ -60,7 +59,6 @@ export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHave
 
   function enterButton() {
     if (gridTurnCount === 5 && gridPossition === 6) {
-      console.log('catch')
       return 0;
     } // checks to see if player is at the end of the grids. Stops users overfilling.
 
@@ -74,58 +72,82 @@ export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHave
       // if the word == the word then the game is won. State is changed to won. 
       if (wordToGuess === str) {
         setHaveWon(true)
+        alert('YOU WIN!');
       }
 
       // Time to check what letters match 
-      let dictSearch = dictionary.map((word) => {
+      let dictSearch = dictionary.map((word, mapIndex) => {
         if( word == str) {
          
           let userWord = str.split(''); // USER INPUTTED WORD SPLIT INTO ARRAY
           userWord.forEach((character, index1)=> {
           let wordArr = wordToGuess.split('')
           wordArr.forEach((strCharacter, index2)=>{
+            
             if(strCharacter == character && index1 == index2 ){
               setClassNames((prev)=>{
-                  prev[`${strCharacter}`]["class"] = "keyboardLetters correct"
-                  prev[`${strCharacter}`]['changed'] = true; 
-                  prev[`${gridTurnCount}${index1}`]['class'] = 'squares correct'
+                let classNamesUpdated = {...prev}
+                
+                  classNamesUpdated[`${strCharacter}`]["class"] = "keyboardLetters correct"
+                  classNamesUpdated[`${strCharacter}`]['changed'] = true; 
+
+                  classNamesUpdated[`${gridTurnCount}${index1}`]['class'] = 'squares correct'
+                  classNamesUpdated[`${gridTurnCount}${index1}`]['changed'] = true
                   
                   
-                  return prev
+                  
+                  return classNamesUpdated
               })
               
             
             }
 
-            if(strCharacter == character && index1 != index2 ){
+            if(strCharacter == character && index1 !== index2){
               setClassNames((prev)=>{
-                prev[`${gridTurnCount}${index1}`]['class'] = 'squares wrong-location'
-                if(prev[character]['changed'] == false){
-                  prev[`${strCharacter}`]["class"] = "keyboardLetters wrong-location"
-                  prev[`${strCharacter}`]['changed'] = true; 
-                  return prev
+                let classNamesUpdates = {...prev}
+
+                  classNamesUpdates[`${gridTurnCount}${index1}`]['class'] = 'squares wrong-location'
+                  classNamesUpdates[`${gridTurnCount}${index1}`]['changed'] = true
+                
+
+                // classNamesUpdates[`${gridTurnCount}${index1}`]['class'] = 'squares wrong-location'
+                if(classNamesUpdates[strCharacter]['changed'] == false){
+                  classNamesUpdates[`${strCharacter}`]["class"] = "keyboardLetters wrong-location"
+                  classNamesUpdates[`${strCharacter}`]['changed'] = true; 
                 }
-                return prev
+                return classNamesUpdates
               })
             }
 
 
+            if(strCharacter != character) {
             setClassNames((prev)=>{
-              if(strCharacter != character)
-              if(prev[character]['changed'] == false){
-                prev[`${character}`]["class"] = "keyboardLetters wrong";
-                prev[`${character}`]['changed'] = true; 
-                prev[`${gridTurnCount}${index1}`]['class'] = 'squares wrong'
-              return prev
+              let classNamesUpdates = {...prev}
+
+              if(classNamesUpdates[`${gridTurnCount}${index1}`]['changed'] === false ) {
+                classNamesUpdates[`${gridTurnCount}${index1}`]['class'] = 'squares wrong'
+                classNamesUpdates[`${gridTurnCount}${index1}`]['changed'] = true
               }
-              return prev
+
+              if(classNamesUpdates[character]['changed'] == false){
+                classNamesUpdates[`${character}`]["class"] = "keyboardLetters wrong";
+                
+              }
+              return classNamesUpdates
             })
+          }
           })
               
             })
             return 'done'
       }
+      
     })
+    let dictFilter = dictSearch.filter(x=> x == 'done')
+    if(dictFilter.length <= 0){
+        alert("This word isn't in our dictionary!");
+      
+    }
     dictSearch.map((x)=>{
       if(x == 'done'){
         setGridTurnCount((prev) => prev + 1); // change grid to next one
@@ -150,6 +172,7 @@ export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHave
               onClick={() => {
                 clickedLetter(letter);
               }}
+              disabled={haveWon}
             >
               {letter}
             </div>

@@ -38,7 +38,7 @@ export default function Home() {
   return (
     <div className='mainHome'>
     <div className='title'>Animals Wordle</div>
-    {haveWon ? <div>YOU WIN BITCH!</div> : <div></div> }
+    {haveWon ? <div className='wonMessage'>YOU WIN!</div> : <div></div> }
     <Squares gridLetters={gridLetters} classNames={classNames} setClassNames={setClassNames} />
 
     <Keyboard classNames={classNames} setClassNames={setClassNames} gridLetters={gridLetters} setGridLetters={setGridLetters} haveWon={haveWon} setHaveWon={setHaveWon} wordToGuess={wordToGuess} setWordToGuess={setWordToGuess}/>

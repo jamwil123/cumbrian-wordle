@@ -147,3 +147,9 @@
 .largeKeyboardLetters {
   width: 80px;
 }
+
+.wonMessage {
+  font-size: 75px;
+  color: white;
+  margin-bottom: 40px;
+}
