@@ -33,7 +33,7 @@ Clone the repo from here
 
 ```
 
-https://github.com/jamwil123/animal-Wordle
+https://github.com/jamwil123/cumbrian-wordle
 
 ```
 
@@ -41,7 +41,7 @@ using the command
 
 ```
 
-git clone https://github.com/jamwil123/animal-Wordle
+git clone https://github.com/jamwil123/cumbrian-wordle
 
 ```
 
