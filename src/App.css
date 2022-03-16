@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Chicle&display=swap');
+
 .App {
   text-align: center;
   text-transform: capitalize;
@@ -15,8 +17,11 @@
 }
 
 .title {
-  font-size: 30px;
+  font-size: 3em;
   margin-bottom: 40px;
+  font-family: 'Chicle', cursive;
+  color: azure;
+  padding-top: .75em;
 }
 
 .main-square {

@@ -72,7 +72,6 @@ export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHave
       // if the word == the word then the game is won. State is changed to won. 
       if (wordToGuess === str) {
         setHaveWon(true)
-        alert('YOU WIN!');
       }
 
       // Time to check what letters match 
@@ -103,11 +102,17 @@ export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHave
             }
 
             if(strCharacter == character && index1 !== index2){
+              console.log('IN HERE ON', strCharacter, character, index1, index2)
               setClassNames((prev)=>{
                 let classNamesUpdates = {...prev}
-
+                console.log(classNamesUpdates[`${gridTurnCount}${index1}`]["changed"])
+                
+                if(classNamesUpdates[`${gridTurnCount}${index1}`]["changed"] == false ) {
+                  console.log('In here LOWER')
                   classNamesUpdates[`${gridTurnCount}${index1}`]['class'] = 'squares wrong-location'
                   classNamesUpdates[`${gridTurnCount}${index1}`]['changed'] = true
+                }
+                
                 
 
                 // classNamesUpdates[`${gridTurnCount}${index1}`]['class'] = 'squares wrong-location'
@@ -126,7 +131,7 @@ export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHave
 
               if(classNamesUpdates[`${gridTurnCount}${index1}`]['changed'] === false ) {
                 classNamesUpdates[`${gridTurnCount}${index1}`]['class'] = 'squares wrong'
-                classNamesUpdates[`${gridTurnCount}${index1}`]['changed'] = true
+                
               }
 
               if(classNamesUpdates[character]['changed'] == false){
@@ -170,6 +175,7 @@ export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHave
             <div
               className={`${classNames[`${letter}`]['class']}`}
               onClick={() => {
+                if(!haveWon)
                 clickedLetter(letter);
               }}
               disabled={haveWon}
@@ -186,6 +192,7 @@ export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHave
             <div
               className={`${classNames[`${letter}`]['class']}`}
               onClick={() => {
+                if(!haveWon)
                 clickedLetter(letter);
               }}
             >
@@ -201,6 +208,7 @@ export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHave
               <div
                 className={`${classNames[`${letter}`]}`}
                 onClick={() => {
+                  if(!haveWon)
                   delAndEnter(letter);
                 }}
               >
@@ -212,6 +220,7 @@ export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHave
             <div
               className={`${classNames[`${letter}`]['class']}`}
               onClick={() => {
+                if(!haveWon)
                 clickedLetter(letter);
               }}
             >
