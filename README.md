@@ -1,6 +1,6 @@
-# Animal Wordle 
+# Cumbrian Wordle
 
-Animal Wordle is a web application made in the framework React. It is based on the NY times highly popular game, but with an animal spin!
+Cumbrian Wordle is a web application made in the framework React. It is based on the NY times highly popular game, but with a proper Cumbrian twist like!
 ## Dependencies
 
 This project makes use of the following dependencies:
