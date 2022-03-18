@@ -3,8 +3,7 @@ import keyboard from "../utils/keyboard.json";
 import dictionary from "../utils/dictionary.json";
 
 
-export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHaveWon, wordToGuess, setWordToGuess, classNames, setClassNames}) {
-  const [selectedLetters, setSelectedLetters] = useState([]);
+export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHaveWon, wordToGuess, setWordToGuess, classNames, setClassNames, maxGuesses, setMaxGuesses}) {
 
   // Which row of grid you are on 
   const [gridTurnCount, setGridTurnCount] = useState(0);
@@ -12,6 +11,12 @@ export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHave
   const [gridPossition, setGridPossition] = useState(0);
 
   
+  useEffect(() => {
+    if(gridPossition === 5 && gridTurnCount === 5 && haveWon === false){
+              
+      setMaxGuesses(true)
+    }
+  }, [haveWon, gridPossition, gridTurnCount, setMaxGuesses])
   
   
 
@@ -49,7 +54,7 @@ export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHave
     }
 
     if (letter === "enter") {
-      if(gridLetters[gridTurnCount][gridPossition] != ""){
+      if(gridLetters[gridTurnCount][gridPossition] !== ""){
         enterButton();
       }
 
@@ -57,8 +62,9 @@ export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHave
     }
   }
 
-  function enterButton() {
+  async function enterButton() {
     if (gridTurnCount === 5 && gridPossition === 6) {
+      
       return 0;
     } // checks to see if player is at the end of the grids. Stops users overfilling.
 
@@ -67,23 +73,28 @@ export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHave
       let str = ""; // string of the user inputted WORD
       gridLetters[gridTurnCount].map((letter) => {
         str += letter;
+        return 0
       });
 
       // if the word == the word then the game is won. State is changed to won. 
       if (wordToGuess === str) {
         setHaveWon(true)
+          console.log(haveWon, '<<<<<')
+        
       }
+
+      
 
       // Time to check what letters match 
       let dictSearch = dictionary.map((word, mapIndex) => {
-        if( word == str) {
+        if( word === str) {
+          
          
           let userWord = str.split(''); // USER INPUTTED WORD SPLIT INTO ARRAY
           userWord.forEach((character, index1)=> {
           let wordArr = wordToGuess.split('')
           wordArr.forEach((strCharacter, index2)=>{
-            
-            if(strCharacter == character && index1 == index2 ){
+            if(strCharacter === character && index1 === index2 ){
               setClassNames((prev)=>{
                 let classNamesUpdated = {...prev}
                 
@@ -102,10 +113,10 @@ export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHave
             }
 
             if(strCharacter == character && index1 !== index2){
-              console.log('IN HERE ON', strCharacter, character, index1, index2)
+              
               setClassNames((prev)=>{
                 let classNamesUpdates = {...prev}
-                console.log(classNamesUpdates[`${gridTurnCount}${index1}`]["changed"])
+                
                 
                 if(classNamesUpdates[`${gridTurnCount}${index1}`]["changed"] == false ) {
                   console.log('In here LOWER')
@@ -142,8 +153,9 @@ export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHave
             })
           }
           })
-              
+              return 0
             })
+            
             return 'done'
       }
       
@@ -159,7 +171,9 @@ export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHave
         setGridPossition(0); // change square back to zero
 
       }
+      return 0
     })
+    
     
     
 
@@ -175,7 +189,7 @@ export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHave
             <div
               className={`${classNames[`${letter}`]['class']}`}
               onClick={() => {
-                if(!haveWon)
+                if(!haveWon && !maxGuesses)
                 clickedLetter(letter);
               }}
               disabled={haveWon}
@@ -192,7 +206,7 @@ export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHave
             <div
               className={`${classNames[`${letter}`]['class']}`}
               onClick={() => {
-                if(!haveWon)
+                if(!haveWon && !maxGuesses)
                 clickedLetter(letter);
               }}
             >
@@ -208,7 +222,7 @@ export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHave
               <div
                 className={`${classNames[`${letter}`]}`}
                 onClick={() => {
-                  if(!haveWon)
+                  if(!haveWon && !maxGuesses)
                   delAndEnter(letter);
                 }}
               >
@@ -220,7 +234,7 @@ export default function Keyboard({ gridLetters, setGridLetters, haveWon, setHave
             <div
               className={`${classNames[`${letter}`]['class']}`}
               onClick={() => {
-                if(!haveWon)
+                if(!haveWon && !maxGuesses)
                 clickedLetter(letter);
               }}
             >
